@@ -1,0 +1,29 @@
+import java.util.Base64;
+
+public class baseD {
+    public static void main(String[] args){
+        String str=dyq.encode("有内鬼终止交易！");
+        System.out.println(str);
+        String anstr=dyq.decode(str);
+        System.out.println(anstr);
+    }
+}
+class dyq{
+    private static final String SALT = "没有中间商赚差价";
+    private static final int REPEAT = 6;
+    public static String encode(String str){
+        String temp = str+"{"+SALT+"}";
+        byte data[] = temp.getBytes();
+        for(int x=0;x<REPEAT;x++){
+            data = Base64.getEncoder().encode(data);
+        }
+        return new String(data);
+    }
+    public static String decode(String str){
+        byte data[]=str.getBytes();
+        for(int x=0;x<REPEAT;x++){
+            data=Base64.getDecoder().decode(data);
+        }
+        return new String(data).replaceAll("\\{[^x00-xff]+\\}","");
+    }
+}
