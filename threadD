@@ -1,0 +1,42 @@
+public class ThreadDmessage {
+    public static void main(String[] args){
+        new Thread(()->{
+            Message msg = new Message();
+            msg.setInfo("第一个线程的消息");
+            Channel.setMessage(msg);
+            Channel.send();
+        },"消息发送者A").start();
+        new Thread(()->{
+            Message msg = new Message();
+            msg.setInfo("第二个线程的消息");
+            Channel.setMessage(msg);
+            Channel.send();
+        },"消息发送者B").start();
+        new Thread(()->{
+            Message msg = new Message();
+            msg.setInfo("第三个线程的消息");
+            Channel.setMessage(msg);
+            Channel.send();
+        },"消息发送者C").start();
+    }
+}
+class Channel {
+    public static final ThreadLocal<Message> THREADLOCAL = new ThreadLocal<Message>();
+
+    public static void setMessage(Message m) {
+       THREADLOCAL.set(m);
+    }
+
+    public static void send() {
+        System.out.println("【" + Thread.currentThread().getName() + "、消息发送】" + THREADLOCAL.get().getInfo());
+    }
+}
+class Message{
+    private String info;
+    public void setInfo(String info){
+        this.info=info;
+    }
+    public String getInfo(){
+        return info;
+    }
+}
