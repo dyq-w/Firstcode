@@ -1,0 +1,119 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+public class Counter extends JFrame implements ActionListener{
+	
+	private JButton[] jb = new JButton[]{new JButton("1"),new JButton("2"),new JButton("3"),new JButton("C"),
+							new JButton("4"),new JButton("5"),new JButton("6"),new JButton("+"),
+							new JButton("7"),new JButton("8"),new JButton("9"),new JButton("-"),
+							new JButton("0"),new JButton("*"),new JButton("/"),new JButton("=")};
+	
+	private JPanel jp = new JPanel();
+	private JLabel jt = new JLabel();
+	
+	public Counter(){
+		this.setTitle("counter");
+		this.setResizable(false);
+		this.setBounds(100,100,400,550);
+		this.setVisible(true);
+		this.add(jp);
+		jp.setLayout(null);
+		jp.add(jt);
+		jt.setBounds(186,0,400,100);
+		for(int i = 0;i<=3;i++){
+			int b=0;
+			for(int j = 0;j<=3;j++){
+				jb[4*i+j].setBounds(b*100+13,100+i*100,66,66);
+				b++;
+				jp.add(jb[4*i+j]);
+				jb[4*i+j].addActionListener(this);
+			}
+		}
+		
+	}
+	
+	StringBuffer s1=new StringBuffer();
+	String s2=new String();
+	StringBuffer s3=new StringBuffer();
+	String s4=new String();
+	String c=new String("+");
+	public void deal(String i){
+		int a=0,b=0;
+
+		if(i.equals("1")||i.equals("2")||i.equals("3")||i.equals("4")||i.equals("5")||
+		   i.equals("6")||i.equals("7")||i.equals("8")||i.equals("9")||i.equals("0")){
+			   s1=s1.append(i);
+			   if(true){
+				 s3=s3.append(i);
+				 s4=new String(s3);
+			   }
+			
+		   }else if(i.equals("+")||i.equals("-")||i.equals("*")||i.equals("/")){
+			   if(i.equals("+")){c=new String("+");}else if(i.equals("-")){c=new String("-");}else if(i.equals("*")){c=new String("*");}else if(i.equals("/")){c=new String("/");}
+			   s2=new String(s1);
+			   
+			   s1=s1.append(i);
+			   a=s1.length();
+			   
+
+			   
+		   }else if(i.equals("C")){
+			   s1=new StringBuffer();
+			   s3=new StringBuffer();
+			   a=0;b=0;
+		   }else if(i.equals("=")){
+			   int k=0;
+			   int d=s2.length();
+			   s4=s4.substring(d);
+			   a=Integer.valueOf(s2).intValue();
+			   b=Integer.valueOf(s4).intValue();
+			   if(c.equals("+")){k=a+b;}else if(c.equals("-")){k=a-b;}else if(c.equals("*")){k=a*b;}else if(c.equals("/")){k=a/b;}
+			   s1=new StringBuffer(Integer.toString(k));
+			 
+		   }
+		  
+		       String s12= new String(s1);
+			   jt.setText(s12);
+	}
+		
+	public void actionPerformed(ActionEvent e){
+		if(e.getSource() == jb[0]){
+			this.deal("1");
+		}else if(e.getSource() == jb[1]){
+			this.deal("2");
+		}else if(e.getSource() == jb[2]){
+			this.deal("3");
+		}else if(e.getSource() == jb[3]){
+			this.deal("C");
+		}else if(e.getSource() == jb[4]){
+			this.deal("4");
+		}else if(e.getSource() == jb[5]){
+			this.deal("5");
+		}else if(e.getSource() == jb[6]){
+			this.deal("6");
+		}else if(e.getSource() == jb[7]){
+			this.deal("+");
+		}else if(e.getSource() == jb[8]){
+			this.deal("7");
+		}else if(e.getSource() == jb[9]){
+			this.deal("8");
+		}else if(e.getSource() == jb[10]){
+			this.deal("9");
+		}else if(e.getSource() == jb[11]){
+			this.deal("-");
+		}else if(e.getSource() == jb[12]){
+			this.deal("0");
+		}else if(e.getSource() == jb[13]){
+			this.deal("*");
+		}else if(e.getSource() == jb[14]){
+			this.deal("/");
+		}else if(e.getSource() == jb[15]){
+			this.deal("=");
+		}
+	}
+	
+	public static void main(String[] args){
+		new Counter();
+	}
+	
+}
