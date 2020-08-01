@@ -1,0 +1,66 @@
+class Car{
+    private String name;
+    private String color;
+    private double price;
+    private Person person;
+    public Car(){}
+    public Car(String name,String color,double price){
+        this.name=name;
+        this.color=color;
+        this.price=price;
+    }
+    public void setPerson(Person person){
+        this.person=person;
+    }
+    public Person getPerson(){
+        return this.person;
+    }
+    public String getInfo(){
+            return "汽车的品牌："+this.name+"、汽车的颜色："+this.color+"、汽车的价格："+this.price;
+    }
+}
+
+class Person{
+    private String name;
+    private int age;
+    private Car car;
+    private Person children[];
+    public Person(){}
+    public Person(String name,int age){
+        this.name=name;
+        this.age=age;
+    }
+    public void setChildren(Person [] children){
+        this.children=children;
+    }
+    public Person [] getChildren(){
+        return children;
+    }
+    public void setCar(Car car){
+        this.car=car;
+    }
+    public Car getCar(){
+        return this.car;
+    }
+    public String getInfo(){
+        return "姓名："+this.name+"、年龄"+this.age;
+    }
+}
+
+public class ClassY {
+    public static void main(String [] args){
+        Car car=new Car("大众","黑色",6000000.00);
+        Person person=new Person("张三",39);
+        car.setPerson(person);
+        person.setCar(car);
+        System.out.println(person.getCar().getInfo());
+        System.out.println(car.getPerson().getInfo());
+        person.setChildren(new Person[]{new Person("李四",16),new Person("王五",19)});
+        person.getChildren()[0].setCar(new Car("宾利","白色",15000000.0));
+        person.getChildren()[1].setCar(new Car("法拉利","红色",90000000.0));
+        for(int i=0;i<person.getChildren().length;i++) {
+            System.out.println(person.getChildren()[i].getInfo());
+            System.out.println(person.getChildren()[i].getCar().getInfo());
+        }
+    }
+}
